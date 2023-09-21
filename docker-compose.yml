@@ -1,0 +1,15 @@
+version: "3.7"
+
+services:
+  flasktemplate:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: flaskapi-template
+    restart: always
+    env_file:
+      - dev.env
+    volumes:
+      - "./app:/app"
+    ports:
+      - "8080:8080"
