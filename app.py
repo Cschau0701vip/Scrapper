@@ -1,16 +1,14 @@
-from dotenv import load_dotenv
-load_dotenv()
+import werkzeug
+werkzeug.cached_property = werkzeug.utils.cached_property
+from flask import *
+from flask_cors import CORS
 
-try:
-    from API import (app,
-                     api,
-                     ScrapperController,
-                     docs
-                     )
-except Exception as e:
-    print("Modules are Missing : {} ".format(e))
-
-scrapper_controller = ScrapperController()
-
-api.add_resource(scrapper_controller, '/scrapper', endpoint='scrappercontroller')
-docs.register(ScrapperController)
+def create_app():
+    app = Flask(__name__)
+    print(app)
+    print("Hello-------")
+    CORS(app)
+    app.config['SECRET_KEY'] = '9OLWxND4o83j4K4iuopO'
+    from blueprints.blueprint import blueprint
+    app.register_blueprint(blueprint)
+    return app
